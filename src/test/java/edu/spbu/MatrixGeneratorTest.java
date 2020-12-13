@@ -1,6 +1,5 @@
 package edu.spbu;
 
-import edu.spbu.MatrixGenerator;
 import org.junit.After;
 import org.junit.Test;
 
@@ -23,7 +22,6 @@ public class MatrixGeneratorTest
 
   @Test
   public void testGenerate() throws Exception {
-    new MatrixGenerator(1,3,fileName,10).generate();
     BufferedReader reader = new BufferedReader(new FileReader(fileName));
     int lineCount=0;
     int emptyLineCount=0;

@@ -2,13 +2,14 @@ package edu.spbu;
 
 import edu.spbu.matrix.*;
 
+import java.io.FileNotFoundException;
+
 public class MatrixPerfTest
 {
   public static final String MATRIX1_NAME = "m1.txt";
-  public static final String MATRIX2_NAME = "m2.txt";
+  public static final String MATRIX2_NAME = "src/main/m2.txt";
 
-  public static void main(String s[])
-  {
+  public static void main(String s[]) throws FileNotFoundException, MemoryAllocateException, WrongSizeException {
 
     System.out.println("Starting loading dense matrices");
     Matrix m1 = new DenseMatrix(MATRIX1_NAME);
