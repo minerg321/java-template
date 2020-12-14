@@ -9,7 +9,7 @@ public class MatrixPerfTest
   public static final String MATRIX1_NAME = "m1.txt";
   public static final String MATRIX2_NAME = "src/main/m2.txt";
 
-  public static void main(String s[]) throws FileNotFoundException, MemoryAllocateException, WrongSizeException {
+  public static void main(String s[])  {
 
     System.out.println("Starting loading dense matrices");
     Matrix m1 = new DenseMatrix(MATRIX1_NAME);
