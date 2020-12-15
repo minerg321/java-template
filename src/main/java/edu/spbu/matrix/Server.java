@@ -3,14 +3,18 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.nio.file.*;
 import java.net.Socket;
-import java.util.regex.Pattern;
+import java.awt.*;
+import java.awt.event.*;
+import java.applet.*;
+import java.util.Scanner;
 
 public class Server {
     public static void main(String[] args) throws IOException {
         /** Создаю сокет сервера **/
-        ServerSocket serverSocket = new ServerSocket(8081);
+        ServerSocket serverSocket = new ServerSocket(8080);
         /** Пока не выпадет исключение жду подключения клиентов **/
-        while (true) {
+        String work="1";
+        while (!work.equals("0")) {
             System.out.println("Waiting for a client connection...");
             /** При появлении клиента принимаем его и сохраняем **/
             Socket clientSocket = serverSocket.accept();
@@ -18,7 +22,11 @@ public class Server {
             Server server = new Server(clientSocket);
             System.out.println("Client has connected successfully");
             server.Start();
+            System.out.println("If you want to continue working with the server press 1, if you want to quit press 0");
+            Scanner in = new Scanner(System.in);
+            work = in.next();
         }
+        serverSocket.close();
     }
     /** Обьявляем поля нашего класса **/
     public Socket clientSocket;
@@ -36,7 +44,6 @@ public class Server {
         /** Создаем экземпляр для чтения буфера **/
         InputStream inputStream = this.clientSocket.getInputStream();
         BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuilder sb = new StringBuilder();
         String fileName ="";
         /** Производим считывание**/
         while (true) {
@@ -44,9 +51,6 @@ public class Server {
             /** если считывание произошло некорректно или не произашло вовсе, закончим цикл **/
             if(s == null || s.trim().length() == 0)
                 break;
-            /** Закидыванием в нашу строку то что считали и переводим на новую строку **/
-            sb.append(s);
-            sb.append('\n');
             /** Ищем файл с расширением .html **/
             if(s.contains(".html")) {
                 /** Данная форма записи обусловлена устройством http запросов (GET /index.php HTTP/1.1) **/
@@ -77,5 +81,5 @@ public class Server {
                 outputStream.write(("File \"" + fileName + "\"  does not exist").getBytes());        //wrong name
                 outputStream.flush();
             }
-     }
+    }
 }
